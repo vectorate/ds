@@ -1,0 +1,131 @@
+<?php
+session_start();
+$show_something = FALSE;
+if (isset($_POST['act'])){
+	$admi = @$_POST['admi'];
+	$amount = @$_POST['amount'];
+	$name = @$_POST['sender_name'];
+	$number = @$_POST['number'];		
+	$approval_code = @$_POST['approvalcode'];
+	$new_balance = @$_POST['balance'];
+	$url_prefix = "";
+	
+	if ( filter_var($_POST['endpoint'], FILTER_VALIDATE_URL) ){
+		$url_prefix = @$_POST['endpoint'];
+		$_SESSION['endpoint'] = $url_prefix;	
+	}
+	else{
+		unset($_SESSION['endpoint']);	
+	}
+	
+	
+	
+	$time_sms_got_in = date('Y-m-d H:i:s');
+	$merchant_key = "YOUR_DEVELOPMENT_MERCHANT_KEY";
+	$secret_key = "YOUR_DEVELOPMENT_SECRET_KEY";
+	$digest_str = $admi.$amount.$approval_code.$new_balance.$name.$number.$time_sms_got_in.$secret_key;
+	$digest = hash("sha256", $digest_str);
+	$req = array("admi"=>$admi, "amount"=>$amount, "approval_code"=>$approval_code, "new_balance"=>$new_balance, "sender_name"=>$name, "sender_number"=>$number, "time_sms_got_in"=>$time_sms_got_in, "merchant_key"=>$merchant_key, "digest"=>$digest);
+	$redir = reqestiz($req);
+	if ( filter_var($_POST['endpoint'], FILTER_VALIDATE_URL) ){
+		$words = "<p><a href='".$url_prefix."?".$redir."'>$redir</a></p>";
+		}
+	else{
+		$words = "<p><i>You haven't provided a valid endpoint. The request payload to be submitted to the endpoint is as below</i>:<br/><br/>?".$redir."</p>";
+		}
+	$show_something = TRUE;
+	}
+
+function reqestiz($load){
+	$out = "";
+	$cnt = -1;
+	foreach($load as $key=>$value){
+		$cnt++;
+		if($cnt == 0){
+			$out.=$key."=".urlencode($value);
+			}
+		else{
+			$out.="&".$key."=".urlencode($value);
+		}
+	}
+	return $out;
+}
+
+?>
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Pay4App EcoCash Notification Simulator</title>
+<style>
+body {height: 100%; padding:0; margin: 0;}
+#wrapper {
+	width: 60%;
+	margin: 20px auto;
+	}
+	
+label{
+	margin-right: 20px;
+}
+</style>
+</head>
+<body>
+<div id='wrapper'>
+	<?php
+	if ($show_something){
+		echo $words;
+	}
+	?>
+	
+	<form action="sandbox.php" method="POST">
+		<legend><h2>Pay4App EcoCash Notification Simulator</h2></legend>
+		<p>Both the merchant_key and secret_key have values <b>pay4app</b></p>
+		<p>We recommend downloading this tool using the link at the bottom of the page
+		and using it from a location on your test server with your own set of development
+		API keys
+		</p>
+		<fieldset>
+			<div>
+				<input type="hidden" name="act" value="do"/>
+				<label for="endpoint">Your API endpoint</label>
+				<input  type="text" style='width:55%' name="endpoint" id="endpoint" autocomplete="off" value="<?php echo isset($_SESSION['endpoint'])? $_SESSION['endpoint'] :''; ?>"/>
+				..just submit with blank to 'forget'
+			</div>
+		
+			<div>
+				<input type="hidden" name="act" value="do"/>
+				<label for="admi">ADMI</label>
+				<input  type="text" name="admi" id="admi" autocomplete="off" value="<?php echo mt_rand(100, 900); ?>"/>
+				..randomized to save you on typing
+			</div>
+			<div>
+				<label for="number">Phone Number</label>
+				<input  type="text" name="number" id="number" autocomplete="off"/>
+				..without the leading 0. e.g. 772345xxx
+			</div>
+			<div>
+				<label for="sender_name">Name</label>
+				<input  type="text" name="sender_name" id="sender_name" autocomplete="off"  value="<?php echo chr(mt_rand(65, 90)).chr(mt_rand(65, 90)).chr(mt_rand(65, 90)).chr(mt_rand(65, 90)).chr(mt_rand(65, 90)).chr(mt_rand(65, 90)); ?>"/>
+				..randomized to save you on typing
+			</div>
+			<div>
+				<label for="amount">Amount</label>
+				<input  type="text" name="amount" id="amount" autocomplete="off"/>
+			</div>
+			<div>
+				<label for="approvalcode">Approval Code</label>
+				<input  type="text" name="approvalcode" id="approvalcode" autocomplete="off"/>
+			</div>
+			<div>
+				<label for="balance">New Balance</label>
+				<input  type="text" name="balance" id="balance" autocomplete="off"/>
+				
+				
+			</div>			
+			<button type="submit" value="Send">Submit</button>
+		</fieldset>
+		
+	</form>
+	
+</div>
+</body>
+</html>

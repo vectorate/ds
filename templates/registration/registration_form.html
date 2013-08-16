@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <label for="username">User name:</label>
+    <input type="text" name="username" value="" id="username">
+
+    <label for="email">Email:</label>
+    <input type="text" name="email" value="" id="email">
+
+    <label for="password1">Password1:</label>
+    <input type="password" name="password1" value="" id="password1">
+
+    <label for="password2">Password2:</label>
+    <input type="password" name="password2" value="" id="password2">
+
+    <input type="submit" value="login" />
+    <!-- <input type="hidden" name="next" value="{{ next|escape }}" /> -->
+  </form>
+
+{% endblock content %}
