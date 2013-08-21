@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block head_title %}
+    News | Django Polls
+{% endblock head_title %}
+
+{% block styles %}
+{% endblock styles %}
+
+{% block content %}   
+        <div id = "content_div">
+            {% if latest_article_list %}
+                <ul>
+                {% for article in latest_article_list %}
+                    <p>
+                        <strong>{{ article.headline }}</strong> - {{ article.pub_date }}
+                        <cite class="reporter_name">{{ article.reporter }}</cite>
+                    </p>
+                    <br/>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No articles are available.</p>
+            {% endif %}
+        </div> <!-- end content_div -->
+
+        <!-- CONTENT FROM THE POLLS APP -->
+        <div>
+            <h2>Polls</h2>
+            {% if polls_list %}
+                <ul>
+                {% for poll in polls_list %}
+                    <li><a href="{% url 'polls:detail' poll.id %}">{{ poll.question }}</a></li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No polls are available.</p>
+            {% endif %}            
+        </div>
+
+        <div>
+            <h2>Reporters</h2>
+            <ul>
+                {% if reporter_list %}
+                    {% for reporter in reporter_list %}
+                        <li>
+                            <p>
+                                {{ reporter.first_name }} {{ reporter.last_name }} - {{ reporter.email }}
+                            </p>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        <!-- END POLLS APP -->
+        <abbr title="HyperText Markup Language" class="initialism">HTML</abbr><br/><br/>
+        <address>
+          <strong>Twitter, Inc.</strong><br>
+          795 Folsom Ave, Suite 600<br>
+          San Francisco, CA 94107<br>
+          <abbr title="Phone">P:</abbr> (123) 456-7890
+        </address>
+
+        <address>
+          <strong>Full Name</strong><br>
+          <a href="mailto:#">first.last@example.com</a>
+        </address>
+        <br/>
+        <blockquote>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+          <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+        </blockquote>
+
+        <div class="bs-callout bs-callout-info">
+          <h4>Auto-truncating</h4>
+          <p>Horizontal description lists will truncate terms that are too long to fit in the left column with <code>text-overflow</code>. In narrower viewports, they will change to the default stacked layout.</p>
+        </div>
+{% endblock content %}

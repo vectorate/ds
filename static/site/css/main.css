@@ -8,8 +8,8 @@
 /* float clearing for everyone else */
 .clearfix:after{ clear: both; content: "."; display: block; height: 0; visibility: hidden; font-size: 0;}
 
-
-html,body,div,span,applet,object,iframe,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video
+/*
+html,body,div,span,applet,object,iframe,blockquote,pre,a,abbr,acronym,address,big,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video
 {
 	margin: 0;
 	padding: 0;
@@ -30,19 +30,19 @@ body
 	line-height: 1;
 }
 
-ol, ul {
-	list-style: none;
-}
-
-a:link, a:visited, a:active { color: #3c9632; text-decoration: none; outline:none; }
-a:hover { text-decoration: none; color: #34742d; }
-
 html,body
 {
 	color: #4D4D4D;
 	font-size: 13px;
 	font-family: 'Open Sans','Droid Sans',arial,sans-serif;
 	height: 100%;
+}
+*/
+a:link, a:visited, a:active { color: #3c9632; text-decoration: none; outline:none; }
+a:hover { text-decoration: none; color: #34742d; }
+
+ol, ul {
+	list-style: none;
 }
 
 body
@@ -90,6 +90,12 @@ footer .footer-940
 
 }/* STICKY NAVIGATION */
 
+.reporter_name {
+	margin-left: 20px;
+	display: block;
+	margin-top: 10px;
+}
+
 .demo_container { width:980px; margin:0 auto; }
 /*#demo_top_wrapper { margin:0 0 20px 0; }*/
 #demo_top { height:100px; padding:20px 0 0 0; }
@@ -109,11 +115,22 @@ body {
 }
 #page-container {
     width: 90%;
-    height: 120%;
+    /*height: 120%;*/
     background-color: #FAFAFA;
     margin: auto;
     padding: 20px;
     -webkit-box-shadow: 1px 3px 21px -1px rgba(0,0,0,0.75);
     -moz-box-shadow: 1px 3px 21px -1px rgba(0,0,0,0.75);
     box-shadow: 1px 3px 21px -1px rgba(0,0,0,0.75);
+}
+
+/* Border box */
+.bs-callout-info {
+	background-color: #f0f7fd;
+	border-color: #d0e3f0;
+}
+.bs-callout {
+	margin: 20px 0;
+	padding: 15px 30px 15px 15px;
+	border-left: 5px solid #E9E9E9;
 }

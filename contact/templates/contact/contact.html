@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block head_title %}
+    Contact Us | Django Polls
+{% endblock head_title %}
+
+{% block styles %}
+{% endblock styles %}
+{% block content %}   
+	<form action="/contact/" method="post">{% csrf_token %}
+		<table>
+			<tr>
+				<td>
+					{{ form.subject.label_tag }}
+				</td>
+				<td>
+					{{ form.subject }}
+				</td>
+				{% if form.subject.errors %}
+					<td>
+						{% for error in form.subject.errors %}
+							{{ error }}
+						{% endfor %}					
+					</td>
+				{% endif %}
+			</tr>
+			<tr>
+				<td>
+					{{ form.message.label_tag }}
+				</td>
+				<td>
+					{{ form.message }}
+				</td>
+				{% if form.message.errors %}
+					<td>
+						{% for error in form.message.errors %}
+							{{ error }}
+						{% endfor %}					
+					</td>
+				{% endif %}			
+			</tr>
+			<tr>
+				<td>
+					{{ form.sender.label_tag }}
+				</td>
+				<td>
+					{{ form.sender }}
+				</td>
+				{% if form.sender.errors %}
+					<td>
+						{% for error in form.sender.errors %}
+							{{ error }}
+						{% endfor %}					
+					</td>
+				{% endif %}			
+			</tr>		
+			<tr>
+				<td>
+					{{ form.cc_myself.label_tag }}
+				</td>
+				<td>
+					{{ form.cc_myself }}
+				</td>
+			</tr>		
+		</table>
+	<input type="submit" value="Submit" />
+	</form>
+{% endblock content %}

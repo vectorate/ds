@@ -3,40 +3,14 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{% block head_title %} DataSense | Home{% endblock %}</title>
 	{% block styles %} {% endblock %}	
 	<link rel="stylesheet" href="{% static "site/css/main.css"  %}">
-	<script type="text/javascript" src="{% static "site/js/jquery.min.js" %}"></script>
+	<link rel="stylesheet" href="{% static "assets/css/bootstrap.css"  %}">
 	<!--[if lt IE 9]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-	<script>
-	$(function() {
-
-		// grab the initial top offset of the navigation 
-		var sticky_navigation_offset_top = $('#sticky_navigation').offset().top;
-		
-		// our function that decides weather the navigation bar should have "fixed" css position or not.
-		var sticky_navigation = function(){
-			var scroll_top = $(window).scrollTop(); // our current vertical position from the top
-			
-			// if we've scrolled more than the navigation, change its position to fixed to stick to top, otherwise change it back to relative
-			if (scroll_top > sticky_navigation_offset_top) { 
-				$('#sticky_navigation').css({ 'position': 'fixed', 'top':0, 'left':0 });
-			} else {
-				$('#sticky_navigation').css({ 'position': 'relative' }); 
-			}   
-		};
-		
-		// run our function on load
-		sticky_navigation();
-		
-		// and run it again every time you scroll
-		$(window).scroll(function() {
-			 sticky_navigation();
-		});
-	});
-	</script>	
 </head>
 <body >
 	<noscript>
@@ -58,12 +32,12 @@
 				<div class="demo_container">
 					<ul>
 						<li><a href="#" class="selected">HOME</a></li>
-						<li><a href="#">ABOUT US</a></li>
-						<li><a href="#">SERVICES</a></li>
+						<li><a href="{% url 'polls:index' %}">POLLS</a></li>
+						<li><a href="{% url 'news:index' %}">NEWS</a></li>
 
 						<li><a href="#">CLIENTS</a></li>
 						<li><a href="#">PARTNERS</a></li>
-						<li><a href="#">CONTACT</a></li>
+						<li><a href="{% url 'contact:index' %}">CONTACT</a></li>
 					</ul>
 				</div>
 			</div>
@@ -82,6 +56,36 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript" src="{% static "site/js/jquery.min.js" %}"></script>
+		<script type="text/javascript" src="{% static "assets/js/bootstrap.js" %}"></script>
+		<script>
+			$(function() {
+
+				// grab the initial top offset of the navigation 
+				var sticky_navigation_offset_top = $('#sticky_navigation').offset().top;
+				
+				// our function that decides weather the navigation bar should have "fixed" css position or not.
+				var sticky_navigation = function(){
+					var scroll_top = $(window).scrollTop(); // our current vertical position from the top
+					
+					// if we've scrolled more than the navigation, change its position to fixed to stick to top, otherwise change it back to relative
+					if (scroll_top > sticky_navigation_offset_top) { 
+						$('#sticky_navigation').css({ 'position': 'fixed', 'top':0, 'left':0 });
+					} else {
+						$('#sticky_navigation').css({ 'position': 'relative' }); 
+					}   
+				};
+				
+				// run our function on load
+				sticky_navigation();
+				
+				// and run it again every time you scroll
+				$(window).scroll(function() {
+					 sticky_navigation();
+				});
+			});
+		</script>		
+		{% block scripts %} {% endblock scripts %}
 	</div>
 	<footer>
 			<div class="footer-940">

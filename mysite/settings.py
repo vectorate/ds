@@ -5,7 +5,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('RETSELISITSOE MOABI', 'moabi@mail.com'),
+    ('RETSELISITSOE MOABI', 'moabi@mail.com'),
 )
 
 MANAGERS = ADMINS
@@ -21,6 +21,8 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
+
+#AUTH_USER_MODEL = 'custom_user.User'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -132,7 +134,19 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'polls',
     'registration',
-)
+    'news',
+    'contact',
+    )
+
+ACCOUNT_ACTIVATION_DAYS = 6;
+
+
+# EMAIL SETTINGS
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'smtp.ls.wirelsc.com'
+EMAIL_HOST_USER = 'support@ls.wirelsc.com'
+EMAIL_HOST_PASSWORD = 'Lsc102wls'
+EMAIL_PORT = 587
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

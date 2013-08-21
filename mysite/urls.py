@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -17,6 +18,8 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
    url(r'^admin/', include(admin.site.urls)),
    url(r'^polls/', include('polls.urls', namespace="polls")),
+   url(r'^news/', include('news.urls', namespace="news")),
+   url(r'^contact/', include('contact.urls', namespace="contact")),
 
    # User Accounts
    #url(r'^accounts/login/$', login),
@@ -27,5 +30,5 @@ urlpatterns = patterns('',
    #url(r'^accounts/', include('registration.backends.default.urls')),
 
    url(r'^accounts/', include('registration.backends.simple.urls')),
-   url(r'^accounts/profile/', TemplateView.as_view(template_name="profile.html")),
+   url(r'^accounts/profile/', login_required(TemplateView.as_view(template_name="profile.html"))),
 )
